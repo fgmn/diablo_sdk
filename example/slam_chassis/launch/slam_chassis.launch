@@ -1,0 +1,32 @@
+<launch>
+    <arg name="output"        default="screen"/>
+    
+    <arg name="cmd_vel_topic" default="/cmd_vel"/> <!-- cmd_vel topic name -->
+    <arg name="cmd_pos_topic" default="/cmd_pos"/> <!-- cmd_pos topic name -->
+    <arg name="power_topic"   default="/diablo/power"/>
+
+    <arg name="max_x_vel"     default="2.0"/> <!-- (m/s) -->
+    <arg name="max_yaw_vel"   default="1.0"/> <!-- (rad/s) -->
+    <arg name="max_height"    default="1.0"/> <!-- (percent, 0.0~1.0) -->
+    <arg name="tf_thresh"     default="0.05"/> <!-- (m) transform up or down height threshold -->
+    
+    <arg name="ctrl_rate"     default="10.0"/> <!-- (hz) -->
+    <arg name="stat_rate"     default="10.0"/>
+    <arg name="stop_time"     default="0.2"/>  <!-- (s) if cmd_vel is not received within stop_time(s), the chassis stops moving -->
+    
+
+    <node pkg="diablo_sdk"  type="slam_chassis" name="diablo_sdk_slam_chassis" output="$(arg output)">
+        <param name="cmd_vel_topic"     type="string"    value="$(arg cmd_vel_topic)"/>
+        <param name="cmd_pos_topic"     type="string"    value="$(arg cmd_pos_topic)"/>
+        <param name="power_topic"     type="string"      value="$(arg power_topic)"/>
+        <param name="max_x_vel"         type="double"    value="$(arg max_x_vel)"/>
+        <param name="max_yaw_vel"       type="double"    value="$(arg max_yaw_vel)"/>
+        <param name="max_height"        type="double"    value="$(arg max_height)"/>
+        <param name="tf_thresh"         type="double"    value="$(arg tf_thresh)"/>
+        <param name="ctrl_rate"         type="double"    value="$(arg ctrl_rate)"/>
+        <param name="stat_rate"         type="double"    value="$(arg stat_rate)"/>
+        <param name="stop_time"         type="double"    value="$(arg stop_time)"/>
+
+    </node>
+
+</launch>

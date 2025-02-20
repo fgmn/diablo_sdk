@@ -88,6 +88,11 @@ if (WITH_ROS)
     ${CMAKE_CURRENT_SOURCE_DIR}/example/status_update_and_ctrl/main.cpp)
     add_dependencies(status_update_and_ctrl_example diablo_sdk_generate_messages_cpp)
 	target_link_libraries(status_update_and_ctrl_example PRIVATE Threads::Threads)
+	
+		add_executable(slam_chassis ${OSDK_LIB_SRCS}
+    ${CMAKE_CURRENT_SOURCE_DIR}/example/slam_chassis/main.cpp)
+    add_dependencies(slam_chassis diablo_sdk_generate_messages_cpp)
+	target_link_libraries(slam_chassis PRIVATE Threads::Threads)
     
 else()
 	add_executable(diablo_source main.cpp)

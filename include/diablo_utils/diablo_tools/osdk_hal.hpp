@@ -225,7 +225,7 @@ public:
      *         2 start heartbeat error \n
      *         3 initialization port fail \n
      */
-    uint8_t init(const std::string dev = "/dev/ttyAMA0", const int baud = 460800);
+    uint8_t init(const std::string dev = "/dev/ttyS3", const int baud = 460800);
 
     ~HAL_Pi()
     {
