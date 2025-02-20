@@ -115,9 +115,11 @@ public:
         ros::Rate waiting(0.5);
 
         waiting.sleep();
+        //stat_thread：调用 stat() 函数，定时读取并发布车辆状态（例如电源信息）。
         std::thread stat_thread(&SLAMChassis::stat, this, vehicle.telemetry);
 
         waiting.sleep();
+        //ctrl_thread：调用 ctrl() 函数，周期性发送运动控制命令。
         std::thread ctrl_thread(&SLAMChassis::ctrl, this, vehicle.movement_ctrl);
 
         ros::spin();
@@ -147,6 +149,7 @@ public:
         telemetry->configUpdate(); 
 
         // init power_msg
+        //初始化一个 std_msgs::Float32MultiArray 消息，用于发布电源数据（包含电压、电流、电容能量和电量百分比）。
         std_msgs::Float32MultiArray power_msg;
         power_msg.layout.data_offset = 0;
         std_msgs::MultiArrayDimension power_msg_dim; 
@@ -179,6 +182,7 @@ public:
             rate.sleep();     
 
             // if no data is received within 0.2 seconds, reset _cmd_vel
+            //计算一个 stop_tick，即若连续没有收到新的 cmd_vel 指令达到一定次数，则归零运动命令（防止车辆持续运动）。
             if(_cmd_vel_tick++ > stop_tick){
                 // set _cmd_vel to 0
                 _cmd_vel.linear.x = 0;_cmd_vel.linear.y = 0;_cmd_vel.linear.z = 0;
